@@ -1,18 +1,32 @@
 import React, { Component } from 'react';
-import logo from '../images/logo.svg';
 import '../styles/app.css';
+import { Link, Route } from 'react-router-dom';
+import MainPage from './main_page';
+import CreatePost from './create_post';
+import { REACT_APP_BACKEND } from '../actions/constants';
 
 class App extends Component {
+
+
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
+      <div className="app">
+        <header className="navigation">
+          <div className="container">
+            <Link to="/">
+              <h2>Title</h2>
+            </Link>
+            <Link to="/create" role="button">
+              <button>Create Post</button>
+            </Link>
+          </div>
         </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+        {/* <Route path="/create" render={() => (
+            <CreatePost />
+          )} /> */}
+      
+        <Route exact path="/" component={MainPage} />
+        <Route path="/create" component={CreatePost} />
       </div>
     );
   }

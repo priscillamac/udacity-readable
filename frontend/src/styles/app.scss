@@ -1,0 +1,26 @@
+.navigation {
+  background-color: red;
+
+  .container {
+    display: flex;
+    height: 40px;
+    align-items: center;
+  }
+  [role="button"] {
+    margin-left: auto;
+  }
+}
+
+
+button {
+  border-radius: 3px;
+  padding: 5px 10px;
+  border: none;
+  outline: none;
+}
+
+
+.container {
+  max-width: 1024px;
+  margin: auto;
+}
