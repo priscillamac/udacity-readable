@@ -4,6 +4,7 @@ import { Route } from 'react-router-dom';
 import MainPage from './main_page';
 import CreatePost from './create_post';
 import CategoryPage from './category_page';
+import PostPage from './post_page';
 import CategoryList from './category_list';
 import Navigation from './navigation';
 import * as ReadableAPI from '../utils/readable_api';
@@ -31,8 +32,12 @@ class App extends Component {
         <CategoryList />
         <Route exact path="/" render={() => <MainPage posts={posts} />} />
         <Route
-          path={`/category/:category_name`}
+          exact path={`/category/:category_name`}
           render={(props) => (<CategoryPage {...props} posts={posts}/>)}
+        />
+        <Route
+          path={`/category/:category_name/:posts_id`}
+          render={(props) => (<PostPage {...props} posts={posts} />)}
         />
         <Route path="/create" component={CreatePost} />
       </div>

@@ -8,7 +8,7 @@ class PostsList extends Component {
     const hasPosts = posts.length >= 1;
 
     return (
-      <div className="category-list">
+      <div className="posts-list">
         <ul>
           {!hasPosts &&
             <p>There are no posts for {categoryName}</p>
@@ -16,7 +16,7 @@ class PostsList extends Component {
           {hasPosts && posts.map(post =>
             <li key={post.id}>
               <h3>
-                <Link to={`/category/${post.category}/posts/${post.id}`}>
+                <Link to={`/category/${post.category}/${post.id}`}>
                 {post.title}
                 </Link>
               </h3>
