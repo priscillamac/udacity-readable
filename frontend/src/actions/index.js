@@ -1,0 +1,9 @@
+export SELECT_CATEGORY = "SELECT_CATEGORY";
+
+
+export function selectCategory ({ category }) {
+  return {
+    type: SELECT_CATEGORY,
+    category
+  }
+}
