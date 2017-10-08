@@ -4,14 +4,21 @@ import moment from 'moment';
 
 class PostsList extends Component {
   render() {
-    const { posts } = this.props;
+    const { posts, categoryName } = this.props;
+    const hasPosts = posts.length >= 1;
+
     return (
       <div className="category-list">
         <ul>
-          {posts.map(post =>
+          {!hasPosts &&
+            <p>There are no posts for {categoryName}</p>
+          }
+          {hasPosts && posts.map(post =>
             <li key={post.id}>
               <h3>
+                <Link to={`/category/${post.category}/posts/${post.id}`}>
                 {post.title}
+                </Link>
               </h3>
               <p className="description">
                 {post.body}

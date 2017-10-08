@@ -11,6 +11,7 @@ class CategoryPage extends Component {
         <h1>category page for {categoryName}</h1>
         <PostsList
           posts={posts.filter(post => post.category === categoryName)}
+          categoryName={categoryName}
         />
       </div>
     );
