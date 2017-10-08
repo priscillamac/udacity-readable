@@ -30,6 +30,11 @@ class CategoryList extends Component {
       <div className="category-list">
         Categories:
         <ul>
+          <Link to="/" onClick={this.handleSelectCategory.bind(this,
+          '')}
+          >
+            View All
+          </Link>
           {categories.map(category =>
             <li key={category.name}>
               <Link to={`/category/${category.path}`} onClick={this.handleSelectCategory.bind(this, category.name)}
