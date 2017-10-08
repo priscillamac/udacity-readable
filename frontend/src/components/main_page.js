@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import * as ReadableAPI from '../utils/readable_api';
+import moment from 'moment';
 
 class MainPage extends Component {
   constructor(props) {
@@ -59,6 +60,7 @@ class MainPage extends Component {
                 <p>
                   author: {post.author}
                 </p>
+                {moment(post.timestamp).format('LL')}
               </li>
             )}
           </ul>
