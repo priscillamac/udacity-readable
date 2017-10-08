@@ -1,8 +1,13 @@
-export const SELECT_CATEGORY = 'SELECT_CATEGORY';
+export const SET_CATEGORY = 'SET_CATEGORY';
 
-export function selectCategory ({ category }) {
+export function setCategory (categoryName) {
   return {
-    type: SELECT_CATEGORY,
-    category
+    type: SET_CATEGORY,
+    categoryName
   }
 }
+
+// export const setCategory = categoryName => ({
+//   type: SET_CATEGORY,
+//   categoryName
+// });

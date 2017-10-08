@@ -2,11 +2,14 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import * as ReadableAPI from '../utils/readable_api';
 import moment from 'moment';
+import { connect } from 'react-redux';
+import { setCategory } from '../actions';
 
 class MainPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      categoryName: '',
       categories: [],
       posts: []
     };
@@ -22,9 +25,13 @@ class MainPage extends Component {
     });
   }
 
-  render() {
-    const { categories, posts } = this.state;
+  handleSelectCategory(categoryName) {
+    this.props.setCategory(categoryName);
+    this.setState({ setCategory: categoryName });
+  }
 
+  render() {
+    const { categories, posts, category } = this.state;
     return (
       <div className="main-page">
         main_page.js
@@ -33,13 +40,14 @@ class MainPage extends Component {
           <ul>
             {categories.map(category =>
               <li key={category.name}>
-                <Link to={`/${category.path}`}>
+                <Link to={`/category/${category.path}`}>
                   {category.name}
                 </Link>
               </li>
             )}
           </ul>
         </div>
+        <p onClick={this.handleSelectCategory.bind(this, 'sup')}>hello</p>
         <div className="posts-wrapper">
           <ul>
             {posts.map(post =>
@@ -70,4 +78,12 @@ class MainPage extends Component {
   }
 }
 
-export default MainPage;
+function mapStateToProps(categoryReducer) {
+  return {
+    categoryReducer
+  };
+}
+
+export default connect(mapStateToProps, {
+  setCategory
+})(MainPage);
