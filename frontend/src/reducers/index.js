@@ -1,18 +1,6 @@
-import {
-  SET_CATEGORY
-} from '../actions';
+import { combineReducers } from 'redux';
+import categoryReducer from './category_reducer';
 
-const initialState = {
-  categoryName: ''
-}
-
-function categoryReducer (state = initialState, action) {
-  switch (action.type) {
-    case SET_CATEGORY:
-      return Object.assign({}, state, { categoryName: action.categoryName });
-    default:
-      return state;
-  }
-}
-
-export default categoryReducer;
+export default combineReducers({
+  categoryReducer
+});
