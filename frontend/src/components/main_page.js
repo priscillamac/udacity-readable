@@ -1,45 +1,66 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import * as ReadableAPI from '../utils/readable_api';
 
 class MainPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      categories: []
+      categories: [],
+      posts: []
     };
   }
 
   componentDidMount() {
-    ReadableAPI.getCategories().then(categories => {
-      this.setState({ categories })
+    ReadableAPI.getAllCategories().then(categories => {
+      this.setState({ categories });
     });
-    console.log(this.state.categories);
+
+    ReadableAPI.getAllPosts().then(posts => {
+      this.setState({ posts });
+    });
   }
 
   render() {
-    const { categories } = this.state;
-    console.log(this.state.categories);
+    const { categories, posts } = this.state;
+
     return (
       <div className="main-page">
-        Homepage y'all
+        main_page.js
         <div className="categories-list">
           Categories:
           <ul>
             {categories.map(category =>
               <li key={category.name}>
-                {category.name}
+                <Link to={`/${category.path}`}>
+                  {category.name}
+                </Link>
               </li>
             )}
           </ul>
         </div>
         <div className="posts-wrapper">
-          this is where each post will go
           <ul>
-            <li>I am a post</li>
-            <li>I am a post</li>
-            <li>I am a post</li>
-            <li>I am a post</li>
-            <li>I am a post</li>
+            {posts.map(post =>
+              <li key={post.id}>
+                <h3>
+                  {post.title}
+                </h3>
+                <p className="description">
+                  {post.body}
+                </p>
+                <p>
+                  Category:{' '}
+                  <Link to={`/${post.category}`}>{post.category}</Link>
+                </p>
+                <p>
+                  vote Score: {post.voteScore}
+                </p>
+                <p>
+                  author: {post.author}
+                </p>
+              </li>
+            )}
           </ul>
         </div>
       </div>

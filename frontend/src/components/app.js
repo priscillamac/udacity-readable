@@ -3,11 +3,8 @@ import '../styles/app.css';
 import { Link, Route } from 'react-router-dom';
 import MainPage from './main_page';
 import CreatePost from './create_post';
-import { REACT_APP_BACKEND } from '../actions/constants';
 
 class App extends Component {
-
-
   render() {
     return (
       <div className="app">
@@ -24,7 +21,7 @@ class App extends Component {
         {/* <Route path="/create" render={() => (
             <CreatePost />
           )} /> */}
-      
+
         <Route exact path="/" component={MainPage} />
         <Route path="/create" component={CreatePost} />
       </div>
