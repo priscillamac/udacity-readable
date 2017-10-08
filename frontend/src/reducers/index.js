@@ -3,7 +3,7 @@ import {
 } from '../actions';
 
 const initialState = {
-  selectedCategory: 'hello'
+  selectedCategory: ''
 }
 
 function selectCategory (state = initialState, action) {

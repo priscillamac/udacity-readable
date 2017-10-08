@@ -3,9 +3,23 @@ import '../styles/app.css';
 import { Link, Route } from 'react-router-dom';
 import MainPage from './main_page';
 import CreatePost from './create_post';
+import { connect } from 'react-redux';
+import { selectCategory } from '../actions';
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      selectedCategory: ''
+    };
+  }
+
+  handleSelectCategory(category) {
+    this.props.selectCategory(category);
+    this.setState({ selectedCategory: category });
+  }
   render() {
+    console.log(this.props);
     return (
       <div className="app">
         <header className="navigation">
@@ -22,6 +36,8 @@ class App extends Component {
             <CreatePost />
           )} /> */}
 
+        <p onClick={this.handleSelectCategory.bind(this, 'swag')}>test</p>
+
         <Route exact path="/" component={MainPage} />
         <Route path="/create" component={CreatePost} />
       </div>
@@ -29,4 +45,12 @@ class App extends Component {
   }
 }
 
-export default App;
+function mapStateToProps(selectedCategory) {
+  return {
+    selectedCategory
+  };
+}
+
+export default connect(mapStateToProps, {
+  selectCategory
+})(App);
