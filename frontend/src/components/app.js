@@ -8,11 +8,12 @@ import PostPage from './post_page';
 import CategoryList from './category_list';
 import Navigation from './navigation';
 import * as ReadableAPI from '../utils/readable_api';
+import { connect } from 'react-redux';
+import { fetchCategories } from '../actions';
 
 class App extends Component {
   constructor(props) {
     super(props);
-
     this.state = {
       posts: []
     };
@@ -21,6 +22,10 @@ class App extends Component {
   componentDidMount() {
     ReadableAPI.getAllPosts().then(posts => {
       this.setState({ posts });
+    });
+
+    ReadableAPI.getAllCategories().then(categories => {
+      this.props.fetchCategories(categories);
     });
   }
 
@@ -44,4 +49,13 @@ class App extends Component {
     );
   }
 }
-export default App;
+
+function mapStateToProps(categoryReducer) {
+  return {
+    categoryReducer
+  };
+}
+
+export default connect(mapStateToProps, {
+  fetchCategories
+})(App);

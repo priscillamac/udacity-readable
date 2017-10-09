@@ -1,22 +1,14 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import * as ReadableAPI from '../utils/readable_api';
 import { connect } from 'react-redux';
-import { setCategory } from '../actions';
+import { setCategory, fetchCategories } from '../actions';
 
 class CategoryList extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      categoryName: '',
-      categories: []
+      categoryName: ''
     };
-  }
-
-  componentDidMount() {
-    ReadableAPI.getAllCategories().then(categories => {
-      this.setState({ categories });
-    });
   }
 
   handleSelectCategory(categoryName) {
@@ -25,19 +17,19 @@ class CategoryList extends Component {
   }
 
   render() {
-    const { categories } = this.state;
+    const { categories } = this.props;
     return (
       <div className="category-list">
         Categories:
         <ul>
-          <Link to="/" onClick={this.handleSelectCategory.bind(this,
-          '')}
-          >
+          <Link to="/" onClick={this.handleSelectCategory.bind(this, '')}>
             View All
           </Link>
           {categories.map(category =>
             <li key={category.name}>
-              <Link to={`/category/${category.path}`} onClick={this.handleSelectCategory.bind(this, category.name)}
+              <Link
+                to={`/category/${category.path}`}
+                onClick={this.handleSelectCategory.bind(this, category.name)}
               >
                 {category.name}
               </Link>
@@ -49,12 +41,11 @@ class CategoryList extends Component {
   }
 }
 
-function mapStateToProps(categoryReducer) {
-  return {
-    categoryReducer
-  };
-}
+const mapStateToProps = ({ categoryReducer }) => ({
+  categories: categoryReducer.categories
+});
 
 export default connect(mapStateToProps, {
-  setCategory
+  setCategory,
+  fetchCategories
 })(CategoryList);
