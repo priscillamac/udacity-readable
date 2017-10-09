@@ -9,28 +9,21 @@ import CategoryList from './category_list';
 import Navigation from './navigation';
 import * as ReadableAPI from '../utils/readable_api';
 import { connect } from 'react-redux';
-import { fetchCategories } from '../actions';
+import { fetchCategories, fetchPosts } from '../actions';
 
 class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      posts: []
-    };
-  }
-
   componentDidMount() {
-    ReadableAPI.getAllPosts().then(posts => {
-      this.setState({ posts });
+    ReadableAPI.getCategories().then(categories => {
+      this.props.fetchCategories(categories);
     });
 
-    ReadableAPI.getAllCategories().then(categories => {
-      this.props.fetchCategories(categories);
+    ReadableAPI.getPosts().then(posts => {
+      this.props.fetchPosts(posts);
     });
   }
 
   render() {
-    const { posts } = this.state;
+    const { postsReducer: { posts } } = this.props;
     return (
       <div className="app">
         <Navigation />
@@ -50,12 +43,12 @@ class App extends Component {
   }
 }
 
-function mapStateToProps(categoryReducer) {
-  return {
-    categoryReducer
-  };
-}
+const mapStateToProps = ({ categoryReducer, postsReducer }) => ({
+  categoryReducer,
+  postsReducer
+});
 
 export default connect(mapStateToProps, {
-  fetchCategories
+  fetchCategories,
+  fetchPosts
 })(App);

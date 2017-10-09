@@ -1,2 +1,3 @@
 export const SET_CATEGORY = 'SET_CATEGORY';
 export const FETCH_CATEGORIES = 'FETCH_CATEGORIES';
+export const FETCH_POSTS = 'FETCH_POSTS';
