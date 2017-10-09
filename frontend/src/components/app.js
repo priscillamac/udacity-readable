@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import '../styles/app.css';
-import { Route } from 'react-router-dom';
+import { Route, withRouter } from 'react-router-dom';
 import MainPage from './main_page';
 import CreatePost from './create_post';
 import CategoryPage from './category_page';
@@ -48,7 +48,7 @@ const mapStateToProps = ({ categoryReducer, postsReducer }) => ({
   postsReducer
 });
 
-export default connect(mapStateToProps, {
+export default withRouter(connect(mapStateToProps, {
   fetchCategories,
   fetchPosts
-})(App);
+})(App));
