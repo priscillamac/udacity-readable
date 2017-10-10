@@ -21,6 +21,6 @@ export const getPosts = () =>
   fetch(`${api}/posts`, { headers })
     .then(res => res.json())
 
-export const getComments = (posts_id) =>
-  fetch(`${api}/posts/${posts_id}/comments`, { headers })
+export const getComments = (postId) =>
+  fetch(`${api}/posts/${postId}/comments`, { headers })
     .then(res => res.json())

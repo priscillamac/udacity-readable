@@ -31,7 +31,7 @@ class PostsList extends Component {
 
     return (
       <div className="posts-list">
-        <p onClick={this.handleSortPostsClick.bind(this)}>
+        <p className="sort-by" onClick={this.handleSortPostsClick.bind(this)}>
           Sort by date:
           {isDescending
             ? 'up arrow'
