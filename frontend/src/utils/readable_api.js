@@ -40,3 +40,9 @@ export const deletePost = (postId) =>
 export const getComments = (postId) =>
   fetch(`${api}/posts/${postId}/comments`, { headers })
     .then(res => res.json())
+
+export const deleteComment = (postId) =>
+  fetch(`${api}/comments/${postId}`, {
+    method: 'DELETE',
+    headers
+  }).then(res => res.json())

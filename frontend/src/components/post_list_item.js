@@ -2,11 +2,18 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import moment from 'moment';
 import { connect } from 'react-redux';
-import { deletePost } from '../actions';
+import { deletePost, fetchComments } from '../actions';
+import { withRouter } from "react-router-dom";
 
 class PostListItem extends Component {
+  componentDidMount() {
+    this.props.fetchComments(this.props.id);
+  }
   onDelete() {
     this.props.deletePost(this.props.id);
+    // this redirects back to home if a user deletes a comment.
+    // needs withRouter to work
+    this.props.history.push("/");
   }
 
   render() {
@@ -17,7 +24,8 @@ class PostListItem extends Component {
       category,
       timestamp,
       author,
-      voteScore
+      voteScore,
+      commentsReducer: { comments }
     } = this.props;
     return (
       <li className="post-list-item" key={id}>
@@ -38,6 +46,7 @@ class PostListItem extends Component {
         <p>
           author: {author}
         </p>
+        <p>Comments: {comments.length}</p>
         {moment(timestamp).format('LL')}
         <button onClick={this.onDelete.bind(this)}>DELETE</button>
       </li>
@@ -45,8 +54,9 @@ class PostListItem extends Component {
   }
 }
 
-const mapStateToProps = ({ postsReducer }) => ({ postsReducer });
+const mapStateToProps = ({ postsReducer, commentsReducer }) => ({ postsReducer, commentsReducer });
 
-export default connect(mapStateToProps, {
+export default withRouter(connect(mapStateToProps, {
+  fetchComments,
   deletePost
-})(PostListItem);
+})(PostListItem));
