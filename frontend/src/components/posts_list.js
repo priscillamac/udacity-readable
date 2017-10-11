@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import moment from 'moment';
 import PostListItem from './post_list_item';
+import { Link } from 'react-router-dom';
 
 function sortByDate(desc = true) {
   if (desc) {
@@ -30,24 +29,31 @@ class PostsList extends Component {
     const { isDescending } = this.state;
     const hasPosts = posts.length >= 1;
 
+    if (!hasPosts) {
+      return (
+        <div>
+          <p>
+            {categoryName
+              ? `No posts for ${categoryName} exists`
+              : 'No posts exist'}
+          </p>
+          <Link to="/create" role="button">
+            <button>Create a new post</button>
+          </Link>
+        </div>
+      );
+    }
+
     return (
       <div className="posts-list">
         <p className="sort-by" onClick={this.handleSortPostsClick.bind(this)}>
           Sort by date:
-          {isDescending
-            ? 'up arrow'
-            : 'down arrow'
-          }
+          {isDescending ? 'up arrow' : 'down arrow'}
         </p>
         <ul>
-          {!hasPosts &&
-            <p>
-              There are no posts for {categoryName}
-            </p>}
-          {hasPosts &&
-            posts.sort(sortByDate(this.state.isDescending)).map(post =>
-              <PostListItem key={post.id} {...post} />
-            )}
+          {posts
+            .sort(sortByDate(this.state.isDescending))
+            .map(post => <PostListItem key={post.id} {...post} />)}
         </ul>
       </div>
     );

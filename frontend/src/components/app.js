@@ -35,7 +35,7 @@ class App extends Component {
         />
         <Route
           path={`/category/:category_name/:posts_id`}
-          render={(props) => (<PostDetail {...props} posts={posts} />)}
+          render={(props) => (<PostDetail {...props} />)}
         />
         <Route path="/create" component={CreatePost} />
       </div>
