@@ -13,13 +13,9 @@ import { fetchCategories, fetchPosts } from '../actions';
 
 class App extends Component {
   componentDidMount() {
-    ReadableAPI.getCategories().then(categories => {
-      this.props.fetchCategories(categories);
-    });
+    this.props.fetchCategories();
 
-    ReadableAPI.getPosts().then(posts => {
-      this.props.fetchPosts(posts);
-    });
+    this.props.fetchPosts();
   }
 
   render() {

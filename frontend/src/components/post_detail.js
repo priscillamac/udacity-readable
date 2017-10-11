@@ -3,33 +3,17 @@ import * as ReadableAPI from '../utils/readable_api';
 import PostListItem from './post_list_item';
 import moment from 'moment';
 import { connect } from 'react-redux';
-import { fetchPostDetails } from '../actions';
+import { fetchPostDetails, fetchComments } from '../actions';
 
 class PostDetail extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      comments: []
-    };
-  }
-
   componentDidMount() {
     const postId = this.props.match.params.posts_id;
-    ReadableAPI.getComments(postId).then(comments => {
-      this.setState({ comments });
-    });
-
-    ReadableAPI.getPostDetail(postId).then(postDetails => {
-      this.props.fetchPostDetails(postDetails);
-      this.setState({ postDetails });
-    });
-
+    this.props.fetchComments(postId);
+    this.props.fetchPostDetails(postId);
   }
 
   render() {
-    const { comments } = this.state;
-    const { post } = this.props;
+    const { comments, post } = this.props;
     return (
       <div className="post-detail">
         <h1>
@@ -63,10 +47,12 @@ class PostDetail extends Component {
   }
 }
 
-const mapStateToProps = ({ postsReducer }) => ({
-  post: postsReducer.postDetails
+const mapStateToProps = ({ postsReducer, commentsReducer }) => ({
+  post: postsReducer.postDetails,
+  comments: commentsReducer.comments
 });
 
 export default connect(mapStateToProps, {
+  fetchComments,
   fetchPostDetails
 })(PostDetail);
