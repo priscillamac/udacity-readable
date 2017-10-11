@@ -12,11 +12,15 @@ const headers = {
   'Authorization': token
 }
 
+// CATGORIES
 export const getCategories = () =>
   fetch(`${api}/categories`, { headers })
     .then(res => res.json())
     .then(data => data.categories)
 
+
+
+// POSTS
 export const getPosts = () =>
   fetch(`${api}/posts`, { headers })
     .then(res => res.json())
@@ -25,6 +29,14 @@ export const getPostDetail= (postId) =>
   fetch(`${api}/posts/${postId}`, { headers })
     .then(res => res.json())
 
+export const deletePost = (postId) =>
+  fetch(`${api}/posts/${postId}`, {
+    method: 'DELETE',
+    headers
+  }).then(res => res.json())
+
+
+// COMMENTS
 export const getComments = (postId) =>
   fetch(`${api}/posts/${postId}/comments`, { headers })
     .then(res => res.json())

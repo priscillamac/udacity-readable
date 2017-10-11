@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import * as ReadableAPI from '../utils/readable_api';
 import PostListItem from './post_list_item';
 import moment from 'moment';
 import { connect } from 'react-redux';

@@ -7,14 +7,12 @@ import CategoryPage from './category_page';
 import PostDetail from './post_detail';
 import CategoryList from './category_list';
 import Navigation from './navigation';
-import * as ReadableAPI from '../utils/readable_api';
 import { connect } from 'react-redux';
 import { fetchCategories, fetchPosts } from '../actions';
 
 class App extends Component {
   componentDidMount() {
     this.props.fetchCategories();
-
     this.props.fetchPosts();
   }
 

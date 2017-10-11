@@ -1,6 +1,7 @@
 import {
   FETCH_POSTS,
-  FETCH_POST_DETAILS
+  FETCH_POST_DETAILS,
+  DELETE_POST
 } from './types';
 import * as ReadableAPI from '../utils/readable_api';
 
@@ -17,3 +18,10 @@ export const fetchPostDetails = (postDetails) => dispatch => {
       dispatch({type: FETCH_POST_DETAILS, postDetails});
     })
 };
+
+export const deletePost = (post) => dispatch => {
+  ReadableAPI.deletePost(post)
+    .then(post => {
+      dispatch({type: DELETE_POST, post});
+    })
+}
