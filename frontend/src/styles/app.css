@@ -16,3 +16,6 @@ button {
 .container {
   max-width: 1024px;
   margin: auto; }
+
+.post-detail .post-list-item .title {
+  display: none; }

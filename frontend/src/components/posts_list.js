@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import moment from 'moment';
+import PostListItem from './post_list_item';
 
 function sortByDate(desc = true) {
   if (desc) {
@@ -45,27 +46,7 @@ class PostsList extends Component {
             </p>}
           {hasPosts &&
             posts.sort(sortByDate(this.state.isDescending)).map(post =>
-              <li key={post.id}>
-                <h3>
-                  <Link to={`/category/${post.category}/${post.id}`}>
-                    {post.title}
-                  </Link>
-                </h3>
-                <p className="description">
-                  {post.body}
-                </p>
-                <p>
-                  Category:{' '}
-                  <Link to={`/category/${post.category}`}>{post.category}</Link>
-                </p>
-                <p>
-                  vote Score: {post.voteScore}
-                </p>
-                <p>
-                  author: {post.author}
-                </p>
-                {moment(post.timestamp).format('LL')}
-              </li>
+              <PostListItem key={post.id} {...post} />
             )}
         </ul>
       </div>

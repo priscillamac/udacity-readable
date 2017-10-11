@@ -4,7 +4,7 @@ import { Route, withRouter } from 'react-router-dom';
 import MainPage from './main_page';
 import CreatePost from './create_post';
 import CategoryPage from './category_page';
-import PostPage from './post_page';
+import PostDetail from './post_detail';
 import CategoryList from './category_list';
 import Navigation from './navigation';
 import * as ReadableAPI from '../utils/readable_api';
@@ -35,7 +35,7 @@ class App extends Component {
         />
         <Route
           path={`/category/:category_name/:posts_id`}
-          render={(props) => (<PostPage {...props} posts={posts} />)}
+          render={(props) => (<PostDetail {...props} posts={posts} />)}
         />
         <Route path="/create" component={CreatePost} />
       </div>
