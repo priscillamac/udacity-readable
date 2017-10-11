@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PostListItem from './post_list_item';
+import CommentListItem from './comment_list_item';
 import moment from 'moment';
 import { connect } from 'react-redux';
 import { fetchPostDetails, fetchComments } from '../actions';
@@ -33,12 +34,7 @@ class PostDetail extends Component {
             Comments: {comments.length}
           </h2>
           {comments.map(comment =>
-            <li key={comment.id}>
-              {comment.author}
-              {comment.body}
-              {comment.voteScore}
-              {moment(comment.timestamp).format('LL')}
-            </li>
+            <CommentListItem {...comment}/>
           )}
         </div>
       </div>
