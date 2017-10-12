@@ -43,6 +43,14 @@ export const upvotePost = (postId) => {
   }).then(res => res.json())
 }
 
+export const downvotePost = (postId) => {
+  return fetch(`${api}/posts/${postId}`, {
+    method: 'POST',
+    body: JSON.stringify({ option: 'downVote' }),
+    headers
+  }).then(res => res.json())
+}
+
 
 
 

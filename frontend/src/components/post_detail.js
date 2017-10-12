@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import PostListItem from './post_list_item';
+import PostsList from './posts_list';
 import CommentListItem from './comment_list_item';
 import { connect } from 'react-redux';
 import { fetchPostDetails, fetchComments } from '../actions';
@@ -13,12 +13,17 @@ class PostDetail extends Component {
 
   render() {
     const { comments, post } = this.props;
+    const postId = this.props.match.params.posts_id;
+
     return (
       <div className="post-detail">
         <h1>
           {post.title}
         </h1>
-        <PostListItem
+        <PostsList
+          posts={post.filter(post => post.id === postId)}
+        />
+        {/* <PostListItem
           id={post.id}
           body={post.body}
           title={post.title}
@@ -26,7 +31,7 @@ class PostDetail extends Component {
           timestamp={post.timestamp}
           author={post.author}
           voteScore={post.voteScore}
-         />
+         /> */}
 
         <div className="comment-section">
           <h2>Comments</h2>
@@ -40,7 +45,7 @@ class PostDetail extends Component {
 }
 
 const mapStateToProps = ({ postsReducer, commentsReducer }) => ({
-  post: postsReducer.postDetails,
+  post: postsReducer.posts,
   comments: commentsReducer.comments
 });
 

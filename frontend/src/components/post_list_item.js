@@ -2,8 +2,13 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import moment from 'moment';
 import { connect } from 'react-redux';
-import { deletePost, upvotePost, fetchComments } from '../actions';
-import { withRouter } from "react-router-dom";
+import {
+  deletePost,
+  upvotePost,
+  downvotePost,
+  fetchComments
+} from '../actions';
+import { withRouter } from 'react-router-dom';
 
 class PostListItem extends Component {
   componentDidMount() {
@@ -13,12 +18,15 @@ class PostListItem extends Component {
     this.props.deletePost(this.props.id);
     // this redirects back to home if a user deletes a comment.
     // needs withRouter to work
-    this.props.history.push("/");
+    this.props.history.push('/');
   }
 
   onClickUpvote() {
-    // console.log(this.props.upvotePost);
     this.props.upvotePost(this.props.id);
+  }
+
+  onClickDownvote() {
+    this.props.downvotePost(this.props.id);
   }
 
   render() {
@@ -48,11 +56,14 @@ class PostListItem extends Component {
         <p>
           vote Score: {voteScore}
           <button onClick={this.onClickUpvote.bind(this)}>upvote</button>
+          <button onClick={this.onClickDownvote.bind(this)}>downvote</button>
         </p>
         <p>
           author: {author}
         </p>
-        <p>Comments: {comments.length}</p>
+        <p>
+          Comments: {comments.length}
+        </p>
         {moment(timestamp).format('LL')}
         <button onClick={this.onDelete.bind(this)}>DELETE</button>
       </li>
@@ -60,10 +71,16 @@ class PostListItem extends Component {
   }
 }
 
-const mapStateToProps = ({ postsReducer, commentsReducer }) => ({ postsReducer, commentsReducer });
+const mapStateToProps = ({ postsReducer, commentsReducer }) => ({
+  postsReducer,
+  commentsReducer
+});
 
-export default withRouter(connect(mapStateToProps, {
-  fetchComments,
-  deletePost,
-  upvotePost
-})(PostListItem));
+export default withRouter(
+  connect(mapStateToProps, {
+    fetchComments,
+    deletePost,
+    downvotePost,
+    upvotePost
+  })(PostListItem)
+);

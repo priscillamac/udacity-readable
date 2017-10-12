@@ -17,7 +17,7 @@ class App extends Component {
   }
 
   render() {
-    const { postsReducer: { posts } } = this.props;
+    const { posts } = this.props;
     return (
       <div className="app">
         <Navigation />
@@ -39,7 +39,7 @@ class App extends Component {
 
 const mapStateToProps = ({ categoryReducer, postsReducer }) => ({
   categoryReducer,
-  postsReducer
+  posts: postsReducer.posts
 });
 
 export default withRouter(connect(mapStateToProps, {
