@@ -27,16 +27,16 @@ class PostDetail extends Component {
   }
 
   render() {
-    const { comments, post } = this.props;
+    const { comments, posts, title } = this.props;
     const postId = this.props.match.params.posts_id;
 
     return (
       <div className="post-detail">
         <h1>
-          {post.title}
+          {title}
         </h1>
         <PostsList
-          posts={post.filter(post => post.id === postId)}
+          posts={posts.filter(post => post.id === postId)}
         />
         {/* <PostListItem
           id={post.id}
@@ -60,7 +60,8 @@ class PostDetail extends Component {
 }
 
 const mapStateToProps = ({ postsReducer, commentsReducer }) => ({
-  post: postsReducer.posts,
+  posts: postsReducer.posts,
+  title: postsReducer.postDetails.title,
   comments: commentsReducer.comments
 });
 
