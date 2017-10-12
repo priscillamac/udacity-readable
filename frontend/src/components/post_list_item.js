@@ -14,11 +14,15 @@ class PostListItem extends Component {
   componentDidMount() {
     this.props.fetchComments(this.props.id);
   }
-  onDelete() {
+  onDeletePost() {
     this.props.deletePost(this.props.id);
     // this redirects back to home if a user deletes a comment.
     // needs withRouter to work
     this.props.history.push('/');
+  }
+
+  onEditPost() {
+    console.log('onEditPost was clicked');
   }
 
   onClickUpvote() {
@@ -65,7 +69,8 @@ class PostListItem extends Component {
           Comments: {comments.length}
         </p>
         {moment(timestamp).format('LL')}
-        <button onClick={this.onDelete.bind(this)}>DELETE</button>
+        <button onClick={this.onDeletePost.bind(this)}>DELETE</button>
+      <button onClick={this.onEditPost.bind(this)}>Edit</button>
       </li>
     );
   }
