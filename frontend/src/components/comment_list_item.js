@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import moment from 'moment';
-import { deleteComment } from '../actions';
+import { deleteComment, upvoteComment, downvoteComment } from '../actions';
 
 class CommentListItem extends Component {
   onDeleteComment() {
@@ -11,10 +11,10 @@ class CommentListItem extends Component {
     console.log('on edit comment clicked');
   }
   onClickUpvote() {
-    console.log('on upvote comment clicked');
+    this.props.upvoteComment(this.props.id);
   }
   onClickDownvote() {
-    console.log('on downvote comment clicked');
+    this.props.downvoteComment(this.props.id);
   }
 
   render() {
@@ -32,7 +32,9 @@ class CommentListItem extends Component {
           <button onClick={this.onClickUpvote.bind(this)}>upvote</button>
           <button onClick={this.onClickDownvote.bind(this)}>downvote</button>
         </p>
-        <p>date: {moment(timestamp).format('LL')}</p>
+        <p>
+          date: {moment(timestamp).format('LL')}
+        </p>
         <button onClick={this.onDeleteComment.bind(this)}>DELETE</button>
         <button onClick={this.onEditComment.bind(this)}>Edit</button>
       </li>
@@ -43,5 +45,7 @@ class CommentListItem extends Component {
 const mapStateToProps = ({ commentsReducer }) => ({ commentsReducer });
 
 export default connect(mapStateToProps, {
-  deleteComment
+  deleteComment,
+  downvoteComment,
+  upvoteComment
 })(CommentListItem);

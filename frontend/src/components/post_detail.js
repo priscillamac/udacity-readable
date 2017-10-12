@@ -4,7 +4,22 @@ import CommentListItem from './comment_list_item';
 import { connect } from 'react-redux';
 import { fetchPostDetails, fetchComments } from '../actions';
 
+function sortByDate(desc = true) {
+  if (desc) {
+    return (a, b) => new Date(b.timestamp) - new Date(a.timestamp);
+  }
+
+  return (a, b) => new Date(a.timestamp) - new Date(b.timestamp);
+}
+
 class PostDetail extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      isDescending: true
+    };
+  }
+
   componentDidMount() {
     const postId = this.props.match.params.posts_id;
     this.props.fetchComments(postId);
@@ -35,7 +50,7 @@ class PostDetail extends Component {
 
         <div className="comment-section">
           <h2>Comments</h2>
-          {comments.map(comment =>
+          {comments.sort(sortByDate(this.state.isDescending)).map(comment =>
             <CommentListItem key={comment.id} {...comment}/>
           )}
         </div>
