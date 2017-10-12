@@ -8,11 +8,11 @@ const api = "http://localhost:3001"
 const token = "priscilla";
 
 const headers = {
-  'Accept': 'application/json',
+  'Content-Type': 'application/json',
   'Authorization': token
 }
 
-// CATGORIES
+// CATEGORIES
 export const getCategories = () =>
   fetch(`${api}/categories`, { headers })
     .then(res => res.json())
@@ -34,6 +34,16 @@ export const deletePost = (postId) =>
     method: 'DELETE',
     headers
   }).then(res => res.json())
+
+export const upvotePost = (postId) => {
+  return fetch(`${api}/posts/${postId}`, {
+    method: 'POST',
+    body: JSON.stringify({ option: 'upVote' }),
+    headers
+  }).then(res => res.json())
+}
+
+
 
 
 // COMMENTS
