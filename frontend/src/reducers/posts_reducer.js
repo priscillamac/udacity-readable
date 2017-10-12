@@ -1,4 +1,9 @@
-import { FETCH_POSTS, FETCH_POST_DETAILS, DELETE_POST } from '../actions/types';
+import {
+  FETCH_POSTS,
+  FETCH_POST_DETAILS,
+  DELETE_POST,
+  UPVOTE_POST
+} from '../actions/types';
 
 const initialState = {
   posts: [],
@@ -16,6 +21,15 @@ export const postsReducer = (state = initialState, action) => {
         // this filters to only show posts that weren't deleted
         posts: state.posts.filter(post => post.id !== action.post.id)
       });
+    case UPVOTE_POST:
+      return {
+        ...state,
+        posts: [
+          ...state.posts.filter(post => post.id !== action.post.id),
+          action.post
+        ]
+      };
+
     default:
       return state;
   }

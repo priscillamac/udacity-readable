@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import moment from 'moment';
 import { connect } from 'react-redux';
-import { deletePost, fetchComments } from '../actions';
+import { deletePost, upvotePost, fetchComments } from '../actions';
 import { withRouter } from "react-router-dom";
 
 class PostListItem extends Component {
@@ -14,6 +14,11 @@ class PostListItem extends Component {
     // this redirects back to home if a user deletes a comment.
     // needs withRouter to work
     this.props.history.push("/");
+  }
+
+  onClickUpvote() {
+    // console.log(this.props.upvotePost);
+    this.props.upvotePost(this.props.id);
   }
 
   render() {
@@ -42,6 +47,7 @@ class PostListItem extends Component {
         </p>
         <p>
           vote Score: {voteScore}
+          <button onClick={this.onClickUpvote.bind(this)}>upvote</button>
         </p>
         <p>
           author: {author}
@@ -58,5 +64,6 @@ const mapStateToProps = ({ postsReducer, commentsReducer }) => ({ postsReducer, 
 
 export default withRouter(connect(mapStateToProps, {
   fetchComments,
-  deletePost
+  deletePost,
+  upvotePost
 })(PostListItem));
