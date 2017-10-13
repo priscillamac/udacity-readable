@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import PostsList from './posts_list';
 import CommentListItem from './comment_list_item';
 import { connect } from 'react-redux';
-import { fetchPostDetails, fetchComments } from '../actions';
+import { fetchPostDetails, fetchComments,createComment } from '../actions';
+import { Field, reduxForm } from 'redux-form';
 
 function sortByDate(desc = true) {
   if (desc) {
@@ -26,8 +27,21 @@ class PostDetail extends Component {
     this.props.fetchPostDetails(postId);
   }
 
+  handleFormSubmit({ author, comment }) {
+    console.log('clicked on submit comment');
+    const uniqueId = Math.random().toString(36).substr(-20);
+    const commentObject = {
+      id: uniqueId,
+      timestamp: Date.now(),
+      author,
+      body: comment,
+      parentId: this.props.match.params.posts_id
+    };
+    this.props.createComment(commentObject);
+  }
+
   render() {
-    const { comments, posts, title } = this.props;
+    const { comments, posts, title, handleSubmit } = this.props;
     const postId = this.props.match.params.posts_id;
 
     return (
@@ -50,6 +64,29 @@ class PostDetail extends Component {
 
         <div className="comment-section">
           <h2>Comments</h2>
+          <h3>Add a comment</h3>
+          <form onSubmit={handleSubmit(this.handleFormSubmit.bind(this))}>
+            <div>
+              <label>Your Name</label>
+              <div>
+                <Field
+                  name="author"
+                  component="input"
+                  type="text"
+                  placeholder="Name"
+                />
+              </div>
+            </div>
+            <div>
+              <label>Comment</label>
+              <div>
+                <Field name="comment" component="textarea" />
+              </div>
+            </div>
+            <div>
+              <button type="submit">Submit</button>
+            </div>
+          </form>
           {comments.sort(sortByDate(this.state.isDescending)).map(comment =>
             <CommentListItem key={comment.id} {...comment}/>
           )}
@@ -60,12 +97,18 @@ class PostDetail extends Component {
 }
 
 const mapStateToProps = ({ postsReducer, commentsReducer }) => ({
+  postsReducer,
   posts: postsReducer.posts,
   title: postsReducer.postDetails.title,
   comments: commentsReducer.comments
 });
 
-export default connect(mapStateToProps, {
+PostDetail = connect(mapStateToProps, {
   fetchComments,
-  fetchPostDetails
+  fetchPostDetails,
+  createComment
+})(PostDetail);
+
+export default reduxForm({
+  form: 'addComment'
 })(PostDetail);

@@ -85,3 +85,12 @@ export const downvoteComment = (postId) => {
     headers
   }).then(res => res.json())
 }
+
+
+export const createComment = (body) => {
+  return fetch(`${api}/comments`, {
+    method: 'POST',
+    body: JSON.stringify(body),
+    headers
+  }).then(res => res.json())
+}

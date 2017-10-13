@@ -23,12 +23,6 @@ export const postsReducer = (state = initialState, action) => {
         posts: [
           ...state.posts.filter(post => post.id !== action.post.id),
           action.post
-          // {
-          //   voteScore: action.post.voteScore,
-          //   deleted: action.post.deleted
-          // }
-          // action.post.voteScore,
-          // action.post.deleted
         ]
       };
     case FETCH_POST_DETAILS:

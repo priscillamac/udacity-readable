@@ -2,7 +2,8 @@ import {
   FETCH_COMMENTS,
   DELETE_COMMENT,
   DOWNVOTE_COMMENT,
-  UPVOTE_COMMENT
+  UPVOTE_COMMENT,
+  CREATE_COMMENT
 } from './types';
 import * as ReadableAPI from '../utils/readable_api';
 
@@ -31,5 +32,12 @@ export const downvoteComment = (comment) => dispatch => {
   ReadableAPI.downvoteComment(comment)
     .then(comment => {
       dispatch({type: DOWNVOTE_COMMENT, comment});
+    })
+}
+
+export const createComment = (comment) => dispatch => {
+  ReadableAPI.createComment(comment)
+    .then(comment => {
+      dispatch({type: CREATE_COMMENT, comment});
     })
 }
