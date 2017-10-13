@@ -14,7 +14,7 @@ class PostsList extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isDescending: false
+      isDescending: true
     };
   }
 

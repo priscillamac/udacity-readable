@@ -3,7 +3,8 @@ import {
   FETCH_POST_DETAILS,
   DELETE_POST,
   UPVOTE_POST,
-  DOWNVOTE_POST
+  DOWNVOTE_POST,
+  CREATE_POST
 } from '../actions/types';
 
 const initialState = {
@@ -15,6 +16,21 @@ export const postsReducer = (state = initialState, action) => {
   switch (action.type) {
     case FETCH_POSTS:
       return Object.assign({}, state, { posts: action.posts });
+    case CREATE_POST:
+      console.log(action.post);
+      return {
+        ...state,
+        posts: [
+          ...state.posts.filter(post => post.id !== action.post.id),
+          action.post
+          // {
+          //   voteScore: action.post.voteScore,
+          //   deleted: action.post.deleted
+          // }
+          // action.post.voteScore,
+          // action.post.deleted
+        ]
+      };
     case FETCH_POST_DETAILS:
       return Object.assign({}, state, { postDetails: action.postDetails });
     case DELETE_POST:
@@ -38,7 +54,6 @@ export const postsReducer = (state = initialState, action) => {
           action.post
         ]
       };
-
     default:
       return state;
   }

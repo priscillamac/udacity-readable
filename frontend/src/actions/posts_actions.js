@@ -3,7 +3,8 @@ import {
   FETCH_POST_DETAILS,
   DELETE_POST,
   UPVOTE_POST,
-  DOWNVOTE_POST
+  DOWNVOTE_POST,
+  CREATE_POST
 } from './types';
 import * as ReadableAPI from '../utils/readable_api';
 
@@ -39,5 +40,13 @@ export const downvotePost = (post) => dispatch => {
   ReadableAPI.downvotePost(post)
     .then(post => {
       dispatch({type: DOWNVOTE_POST, post});
+    })
+}
+
+
+export const createPost = (post) => dispatch => {
+  ReadableAPI.createPost(post)
+    .then(post => {
+      dispatch({type: CREATE_POST, post});
     })
 }

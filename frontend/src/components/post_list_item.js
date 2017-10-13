@@ -41,8 +41,7 @@ class PostListItem extends Component {
       category,
       timestamp,
       author,
-      voteScore,
-      commentsReducer: { comments }
+      voteScore
     } = this.props;
     return (
       <li className="post-list-item" key={id}>
@@ -66,7 +65,7 @@ class PostListItem extends Component {
           author: {author}
         </p>
         <p>
-          Comments: {comments.length}
+          Comments: THIS NEEDS TO BE DONE
         </p>
         {moment(timestamp).format('LL')}
         <button onClick={this.onDeletePost.bind(this)}>DELETE</button>
@@ -78,7 +77,7 @@ class PostListItem extends Component {
 
 const mapStateToProps = ({ postsReducer, commentsReducer }) => ({
   postsReducer,
-  commentsReducer
+  comments: commentsReducer.comments
 });
 
 export default withRouter(

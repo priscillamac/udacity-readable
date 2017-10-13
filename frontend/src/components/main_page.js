@@ -6,9 +6,7 @@ class MainPage extends Component {
     const { posts } = this.props;
     return (
       <div className="main-page">
-        <div className="posts-wrapper">
-          <PostsList posts={posts}/>
-        </div>
+        <PostsList posts={posts}/>
       </div>
     );
   }

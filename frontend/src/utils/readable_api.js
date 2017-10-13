@@ -5,6 +5,7 @@ const api = "http://localhost:3001"
 // if (!token)
 //   token = localStorage.token = Math.random().toString(36).substr(-8)
 
+// const uniqueId = Math.random().toString(36).substr(-8);
 const token = "priscilla";
 
 const headers = {
@@ -17,8 +18,6 @@ export const getCategories = () =>
   fetch(`${api}/categories`, { headers })
     .then(res => res.json())
     .then(data => data.categories)
-
-
 
 // POSTS
 export const getPosts = () =>
@@ -43,6 +42,14 @@ export const upvotePost = (postId) => {
   }).then(res => res.json())
 }
 
+export const createPost = (body) => {
+  return fetch(`${api}/posts`, {
+    method: 'POST',
+    body: JSON.stringify(body),
+    headers
+  }).then(res => res.json())
+}
+
 export const downvotePost = (postId) => {
   return fetch(`${api}/posts/${postId}`, {
     method: 'POST',
@@ -50,8 +57,6 @@ export const downvotePost = (postId) => {
     headers
   }).then(res => res.json())
 }
-
-
 
 
 // COMMENTS

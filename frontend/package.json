@@ -9,6 +9,7 @@
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
     "react-scripts": "1.0.14",
+    "redux-form": "^7.1.1",
     "redux-thunk": "^2.2.0"
   },
   "scripts": {
