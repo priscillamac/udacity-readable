@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import PostsList from './posts_list';
 import CommentListItem from './comment_list_item';
 import { connect } from 'react-redux';
-import { fetchPostDetails, fetchComments,createComment } from '../actions';
-import { Field, reduxForm } from 'redux-form';
+import { fetchPostDetails, fetchComments, createComment } from '../actions';
+import { Field, reduxForm, reset} from 'redux-form';
 
 function sortByDate(desc = true) {
   if (desc) {
@@ -28,7 +28,6 @@ class PostDetail extends Component {
   }
 
   handleFormSubmit({ author, comment }) {
-    console.log('clicked on submit comment');
     const uniqueId = Math.random().toString(36).substr(-20);
     const commentObject = {
       id: uniqueId,
@@ -49,9 +48,7 @@ class PostDetail extends Component {
         <h1>
           {title}
         </h1>
-        <PostsList
-          posts={posts.filter(post => post.id === postId)}
-        />
+        <PostsList posts={posts.filter(post => post.id === postId)} />
         {/* <PostListItem
           id={post.id}
           body={post.body}
@@ -65,7 +62,9 @@ class PostDetail extends Component {
         <div className="comment-section">
           <h2>Comments</h2>
           <h3>Add a comment</h3>
-          <form onSubmit={handleSubmit(this.handleFormSubmit.bind(this))}>
+          <form
+            onSubmit={handleSubmit(this.handleFormSubmit.bind(this))}
+          >
             <div>
               <label>Your Name</label>
               <div>
@@ -74,22 +73,29 @@ class PostDetail extends Component {
                   component="input"
                   type="text"
                   placeholder="Name"
+                  required
                 />
               </div>
             </div>
             <div>
               <label>Comment</label>
               <div>
-                <Field name="comment" component="textarea" />
+                <Field
+                  name="comment"
+                  component="input"
+                  type="text"
+                  placeholder="Leave a comment"
+                  required
+                />
               </div>
             </div>
             <div>
               <button type="submit">Submit</button>
             </div>
           </form>
-          {comments.sort(sortByDate(this.state.isDescending)).map(comment =>
-            <CommentListItem key={comment.id} {...comment}/>
-          )}
+          {comments
+            .sort(sortByDate(this.state.isDescending))
+            .map(comment => <CommentListItem key={comment.id} {...comment} />)}
         </div>
       </div>
     );
@@ -103,6 +109,9 @@ const mapStateToProps = ({ postsReducer, commentsReducer }) => ({
   comments: commentsReducer.comments
 });
 
+const onSubmitSuccess = (result, dispatch) =>
+  dispatch(reset('commentForm'));
+
 PostDetail = connect(mapStateToProps, {
   fetchComments,
   fetchPostDetails,
@@ -110,5 +119,6 @@ PostDetail = connect(mapStateToProps, {
 })(PostDetail);
 
 export default reduxForm({
-  form: 'addComment'
+  form: 'commentForm',
+  onSubmitSuccess: onSubmitSuccess,
 })(PostDetail);
