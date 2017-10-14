@@ -8,6 +8,7 @@ export const DELETE_COMMENT = 'DELETE_COMMENT';
 export const UPVOTE_COMMENT = 'UPVOTE_COMMENT';
 export const DOWNVOTE_COMMENT = 'DOWNVOTE_COMMENT';
 export const CREATE_COMMENT = 'CREATE_COMMENT';
+export const EDIT_COMMENT = 'EDIT_COMMENT';
 
 // posts
 export const FETCH_POSTS = 'FETCH_POSTS';

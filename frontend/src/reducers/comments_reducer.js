@@ -3,7 +3,8 @@ import {
   DELETE_COMMENT,
   UPVOTE_COMMENT,
   DOWNVOTE_COMMENT,
-  CREATE_COMMENT
+  CREATE_COMMENT,
+  EDIT_COMMENT
 } from '../actions/types';
 
 const initialState = {
@@ -45,6 +46,15 @@ export const commentsReducer = (state = initialState, action) => {
           ...state.comments.filter(comment => comment.id !== action.comment.id),
           action.comment
         ]
+      };
+    case EDIT_COMMENT:
+      console.log(action.comment);
+      return {
+        // ...state,
+        // comments: [
+        //   ...state.comments.filter(comment => comment.id !== action.comment.id),
+        //   action.comment
+        // ]
       };
     default:
       return state;

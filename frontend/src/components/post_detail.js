@@ -27,13 +27,13 @@ class PostDetail extends Component {
     this.props.fetchPostDetails(postId);
   }
 
-  handleFormSubmit({ author, comment }) {
+  handleFormSubmit({ author, body }) {
     const uniqueId = Math.random().toString(36).substr(-20);
     const commentObject = {
       id: uniqueId,
       timestamp: Date.now(),
       author,
-      body: comment,
+      body,
       parentId: this.props.match.params.posts_id
     };
     this.props.createComment(commentObject);
@@ -81,7 +81,7 @@ class PostDetail extends Component {
               <label>Comment</label>
               <div>
                 <Field
-                  name="comment"
+                  name="body"
                   component="input"
                   type="text"
                   placeholder="Leave a comment"

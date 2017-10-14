@@ -1,24 +1,45 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import moment from 'moment';
 import { deleteComment, upvoteComment, downvoteComment } from '../actions';
+import EditComment from './edit_comment';
 
 class CommentListItem extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      showEditForm: false
+    };
+  }
+
   onDeleteComment() {
     this.props.deleteComment(this.props.id);
   }
+
   onEditComment() {
-    console.log('on edit comment clicked');
+    this.setState({ showEditForm: true });
   }
+
+  onCloseForm() {
+    this.setState({ showEditForm: false });
+    console.log('clicked close form');
+  }
+
   onClickUpvote() {
     this.props.upvoteComment(this.props.id);
   }
+
   onClickDownvote() {
     this.props.downvoteComment(this.props.id);
   }
 
   render() {
-    const { author, body, voteScore, timestamp } = this.props;
+    const { showEditForm } = this.state;
+    const { author, body, voteScore, timestamp, handleSubmit, id } = this.props;
+    const initialValues = this.props.initialValues.comments
+      .filter(comment => comment.id === id)
+      .map(comment => comment);
     return (
       <li>
         <p>
@@ -37,15 +58,24 @@ class CommentListItem extends Component {
         </p>
         <button onClick={this.onDeleteComment.bind(this)}>DELETE</button>
         <button onClick={this.onEditComment.bind(this)}>Edit</button>
+        {showEditForm &&
+          <EditComment
+            id={id}
+            initialValues={initialValues}
+            onCloseForm={this.onCloseForm.bind(this)}
+          />}
       </li>
     );
   }
 }
 
-const mapStateToProps = ({ commentsReducer }) => ({ commentsReducer });
+const mapStateToProps = ({ commentsReducer }) => ({
+  commentsReducer,
+  initialValues: commentsReducer
+});
 
 export default connect(mapStateToProps, {
   deleteComment,
-  downvoteComment,
-  upvoteComment
+  upvoteComment,
+  downvoteComment
 })(CommentListItem);
