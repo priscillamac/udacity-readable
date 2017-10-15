@@ -18,3 +18,5 @@ export const UPVOTE_POST = 'UPVOTE_POST';
 export const DOWNVOTE_POST = 'DOWNVOTE_POST';
 export const CREATE_POST = 'CREATE_POST';
 export const EDIT_POST = 'EDIT_POST';
+export const SORT_BY_NEWEST = 'SORT_BY_NEWEST';
+export const SORT_BY_OLDEST = 'SORT_BY_OLDEST';

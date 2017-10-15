@@ -5,12 +5,17 @@ import {
   UPVOTE_POST,
   DOWNVOTE_POST,
   CREATE_POST,
-  EDIT_POST
+  EDIT_POST,
+  SORT_BY_NEWEST,
+  SORT_BY_OLDEST
 } from '../actions/types';
 
 const initialState = {
   posts: [],
   postDetails: [],
+  sortBy: {
+    newest: true
+  }
 };
 
 export const postsReducer = (state = initialState, action) => {
@@ -55,6 +60,20 @@ export const postsReducer = (state = initialState, action) => {
           ...state.posts.filter(post => post.id !== action.post.id),
           action.post
         ]
+      };
+    case SORT_BY_NEWEST:
+      return {
+        ...state,
+        sortBy: {
+          newest: true
+        }
+      };
+    case SORT_BY_OLDEST:
+      return {
+        ...state,
+        sortBy: {
+          newest: false
+        }
       };
     default:
       return state;

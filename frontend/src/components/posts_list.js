@@ -1,32 +1,30 @@
 import React, { Component } from 'react';
 import PostListItem from './post_list_item';
 import { Link } from 'react-router-dom';
-
-function sortByDate(desc = true) {
-  if (desc) {
-    return (a, b) => new Date(b.timestamp) - new Date(a.timestamp);
-  }
-
-  return (a, b) => new Date(a.timestamp) - new Date(b.timestamp);
-}
+import { sortByDate } from '../services';
+import { connect } from 'react-redux';
+import { sortByNewest, sortByOldest } from '../actions';
 
 class PostsList extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      isDescending: true
-    };
-  }
+  onChangeSortBy = (event) => {
+    const value = event.target.value;
+    // console.log(value);
+    // if (value === '')
+    switch (value) {
+      case 'newest':
+        return this.props.sortByNewest();
+      case 'oldest':
+        return this.props.sortByOldest();
+        break;
+      default:
+        return this.props.sortByNewest();
 
-  handleSortPostsClick() {
-    this.setState(prevState => ({
-      isDescending: !prevState.isDescending
-    }));
+    }
+    // value.startsWith('vote_score') ? (value.endsWith('dec')? this.props.sortDecByVotescore() : this.props.sortAecByVotescore()) : (value.endsWith('dec') ? this.props.sortDecByTimestamp() : this.props.sortAecByTimestamp())
   }
 
   render() {
-    const { posts, categoryName } = this.props;
-    const { isDescending } = this.state;
+    const { posts, categoryName, sortBy } = this.props;
     const hasPosts = posts.length >= 1;
 
     if (!hasPosts) {
@@ -46,13 +44,22 @@ class PostsList extends Component {
 
     return (
       <div className="posts-list">
-        <p className="sort-by" onClick={this.handleSortPostsClick.bind(this)}>
-          Sort by date:
-          {isDescending ? 'up arrow' : 'down arrow'}
+        <p className="sort-by">
+          <label>Sort by:</label>
+          <select
+            onChange={this.onChangeSortBy.bind(this)}
+          >
+            <option value="newest">
+              Newest
+            </option>
+            <option value="oldest">
+              Oldest
+            </option>
+          </select>
         </p>
         <ul>
           {posts
-            .sort(sortByDate(this.state.isDescending))
+            .sort(sortByDate(sortBy.newest))
             .map(post => <PostListItem key={post.id} {...post} />)}
         </ul>
       </div>
@@ -60,4 +67,12 @@ class PostsList extends Component {
   }
 }
 
-export default PostsList;
+const mapStateToProps = ({ postsReducer }) => ({
+  posts: postsReducer.posts,
+  sortBy: postsReducer.sortBy
+});
+
+export default connect(mapStateToProps, {
+  sortByNewest,
+  sortByOldest,
+})(PostsList);

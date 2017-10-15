@@ -5,7 +5,9 @@ import {
   UPVOTE_POST,
   DOWNVOTE_POST,
   CREATE_POST,
-  EDIT_POST
+  EDIT_POST,
+  SORT_BY_NEWEST,
+  SORT_BY_OLDEST,
 } from './types';
 import * as ReadableAPI from '../utils/readable_api';
 
@@ -60,3 +62,18 @@ export const editPost = (post, id) => dispatch => {
     });
   });
 };
+
+
+// export const sortPostByNewest = sortBy => ({
+//   type: SORT_POST_BY_NEWEST,
+//   sortBy
+// });
+
+export const sortByNewest = () => dispatch =>
+  dispatch({type: SORT_BY_NEWEST});
+
+export const sortByOldest = () => dispatch =>
+  dispatch({type: SORT_BY_OLDEST});
+
+// export const sort = () => dispatch =>
+//   dispatch({type: ORDER_POSTS_BY_VOTES});
