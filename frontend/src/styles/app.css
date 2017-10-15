@@ -23,7 +23,7 @@ button {
 .main-page .description {
   display: none; }
 
-.swag {
+.edit-comment {
   position: fixed;
   width: 100%;
   top: 0;
@@ -33,13 +33,13 @@ button {
   display: flex;
   justify-content: center;
   align-items: center; }
-  .swag form {
+  .edit-comment form {
     background-color: white;
     padding: 20px;
     max-width: 300px;
     border-radius: 5px;
     z-index: 1; }
-  .swag .overlay {
+  .edit-comment .overlay {
     position: fixed;
     top: 0;
     bottom: 0;

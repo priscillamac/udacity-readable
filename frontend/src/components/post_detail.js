@@ -31,10 +31,10 @@ class PostDetail extends Component {
     const uniqueId = Math.random().toString(36).substr(-20);
     const commentObject = {
       id: uniqueId,
+      parentId: this.props.match.params.posts_id,
       timestamp: Date.now(),
-      author,
       body,
-      parentId: this.props.match.params.posts_id
+      author
     };
     this.props.createComment(commentObject);
   }
@@ -95,7 +95,7 @@ class PostDetail extends Component {
           </form>
           {comments
             .sort(sortByDate(this.state.isDescending))
-            .map(comment => <CommentListItem key={comment.id} {...comment} />)}
+            .map(comment => <CommentListItem key={`${comment.id}-comment`} {...comment} />)}
         </div>
       </div>
     );

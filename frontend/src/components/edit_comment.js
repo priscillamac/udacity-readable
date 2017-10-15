@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Field, reduxForm, reset } from 'redux-form';
+import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
 import { editComment } from '../actions';
 
@@ -13,37 +13,28 @@ class EditComment extends Component {
   }
 
   handleFormSubmit({ author, body }) {
-    console.log('submitted form');
-    console.log(this.props.id);
-    // this.props.editComment(this.props.id);
-    // const commentObject = {
-    //   id: this.props.id,
-    //   timestamp: Date.now(),
-    //   author,
-    //   body,
-    //   parentId: this.props.parentId
-    // };
-    this.props.editComment();
+    const comment = this.props.initialValues[0];
+
+    const commentObject = {
+        id: comment.id,
+        parentId: comment.parentId,
+        timestamp: Date.now(),
+        body,
+        author,
+        voteScore: comment.voteScore,
+        deleted: comment.deleted,
+        parentDelete: comment.parentDeleted
+    };
+
+    this.props.editComment(commentObject, comment.id);
+    this.props.onCloseForm();
   }
-  // onEditComment() {
-  //   const { id } = this.props;
-  //   const test = this.props.initialValues.comments
-  //     .filter(comment => comment.id === id)
-  //     .map(comment => comment);
-  //   this.props.initialize({ author: 'some value here', body: 'body' });
-  //
-  //   console.log('initialValues comments', this.props.initialValues.comments);
-  //   console.log('test', test[0]);
-  //   console.log('on edit comment clicked');
-  //   console.log('id', id);
-  //   console.log('initial values', this.props.initialValues);
-  //   // this.props.initialize(test);
-  // }
+
   render() {
-    const { id, onCloseForm } = this.props;
+    const { handleSubmit, onCloseForm } = this.props;
     return (
-      <div className="swag">
-        <form>
+      <div className="edit-comment">
+        <form onSubmit={handleSubmit(this.handleFormSubmit.bind(this))}>
           <div>
             <label>Your Name</label>
             <div>

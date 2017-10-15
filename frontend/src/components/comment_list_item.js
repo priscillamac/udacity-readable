@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 import moment from 'moment';
 import { deleteComment, upvoteComment, downvoteComment } from '../actions';
 import EditComment from './edit_comment';
@@ -23,7 +22,6 @@ class CommentListItem extends Component {
 
   onCloseForm() {
     this.setState({ showEditForm: false });
-    console.log('clicked close form');
   }
 
   onClickUpvote() {
@@ -36,7 +34,7 @@ class CommentListItem extends Component {
 
   render() {
     const { showEditForm } = this.state;
-    const { author, body, voteScore, timestamp, handleSubmit, id } = this.props;
+    const { author, body, voteScore, timestamp, id } = this.props;
     const initialValues = this.props.initialValues.comments
       .filter(comment => comment.id === id)
       .map(comment => comment);

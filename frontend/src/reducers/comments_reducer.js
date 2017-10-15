@@ -39,7 +39,6 @@ export const commentsReducer = (state = initialState, action) => {
         ]
       };
     case CREATE_COMMENT:
-      console.log(action.comment);
       return {
         ...state,
         comments: [
@@ -48,13 +47,12 @@ export const commentsReducer = (state = initialState, action) => {
         ]
       };
     case EDIT_COMMENT:
-      console.log(action.comment);
       return {
-        // ...state,
-        // comments: [
-        //   ...state.comments.filter(comment => comment.id !== action.comment.id),
-        //   action.comment
-        // ]
+        ...state,
+        comments: [
+          ...state.comments.filter(comment => comment.id !== action.comment.id),
+          action.comment
+        ]
       };
     default:
       return state;
