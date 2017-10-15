@@ -21,53 +21,37 @@ class CreatePost extends Component {
     const { handleSubmit } = this.props;
     return (
       <div className="create-post">
-        <h2>Create a post</h2>
+        <h2>Add New Post</h2>
         <div>
           <form onSubmit={handleSubmit(this.handleFormSubmit.bind(this))}>
-            <div>
-              <label>Your Name</label>
-              <div>
-                <Field
-                  name="author"
-                  component="input"
-                  type="text"
-                  placeholder="Name"
-                />
-              </div>
-            </div>
-            <div>
-              <label>Title</label>
-              <div>
-                <Field
-                  name="title"
-                  component="input"
-                  type="text"
-                  placeholder="Title"
-                />
-              </div>
-            </div>
-            <div>
-              <label>Category</label>
-              <div>
-                <Field name="category" component="select" required>
-                  <option />
-                  <option value="react">
-                    React
-                  </option>
-                  <option value="redux">Redux</option>
-                  <option value="udacity">Udacity</option>
-                </Field>
-              </div>
-            </div>
-            <div>
-              <label>Description</label>
-              <div>
-                <Field name="body" component="textarea" />
-              </div>
-            </div>
-            <div>
-              <button type="submit">Submit</button>
-            </div>
+            <label>Name</label>
+            <Field
+              name="author"
+              component="input"
+              type="text"
+              placeholder="Enter your name"
+              required
+            />
+            <label>Post Title</label>
+            <Field
+              name="title"
+              component="input"
+              type="text"
+              placeholder="Title"
+              required
+            />
+            <label>Post Description</label>
+            <Field name="body" component="textarea" required/>
+            <label>Category</label>
+            <Field name="category" component="select" required>
+              <option value="" disabled selected>
+                Select Category
+              </option>
+              <option value="react">React</option>
+              <option value="redux">Redux</option>
+              <option value="udacity">Udacity</option>
+            </Field>
+            <button type="submit">Submit</button>
           </form>
         </div>
       </div>

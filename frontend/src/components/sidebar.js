@@ -10,20 +10,22 @@ class Sidebar extends Component {
 
   render() {
     const { categories } = this.props;
+    const path = this.props.location.pathname;
     return (
       <div className="sidebar">
         <Link to="/create">
           <button>Add New Post</button>
         </Link>
-        <h3>Categories:</h3>
+        <h3>Categories</h3>
         <ul>
-          <li><Link to="/" onClick={this.handleSelectCategory.bind(this, '')}>
+          <li><Link className={(path === `/`) ? 'active' : ''} to="/" onClick={this.handleSelectCategory.bind(this, '')}>
             View All
           </Link></li>
           {categories.map(category =>
             <li key={category.name}>
               <Link
                 to={`/category/${category.path}`}
+                className={path.startsWith(`/category/${category.name}`) ? 'active' : ''}
                 onClick={this.handleSelectCategory.bind(this, category.name)}
               >
                 {category.name}

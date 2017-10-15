@@ -16,14 +16,14 @@ class EditComment extends Component {
     const comment = this.props.initialValues[0];
 
     const commentObject = {
-        id: comment.id,
-        parentId: comment.parentId,
-        timestamp: Date.now(),
-        body,
-        author,
-        voteScore: comment.voteScore,
-        deleted: comment.deleted,
-        parentDeleted: comment.parentDeleted
+      id: comment.id,
+      parentId: comment.parentId,
+      timestamp: Date.now(),
+      body,
+      author,
+      voteScore: comment.voteScore,
+      deleted: comment.deleted,
+      parentDeleted: comment.parentDeleted
     };
 
     this.props.editComment(commentObject, comment.id);
@@ -35,36 +35,29 @@ class EditComment extends Component {
     return (
       <div className="edit-comment">
         <form onSubmit={handleSubmit(this.handleFormSubmit.bind(this))}>
-          <div>
-            <label>Your Name</label>
-            <div>
-              <Field
-                name="author"
-                component="input"
-                type="text"
-                placeholder="Name"
-                required
-                autoFocus
-              />
-            </div>
-          </div>
-          <div>
-            <label>Comment</label>
-            <div>
-              <Field
-                name="body"
-                component="input"
-                type="text"
-                placeholder="Leave a comment"
-                required
-              />
-            </div>
-          </div>
+          <h3>Edit Comment</h3>
+          <label>Name</label>
+          <Field
+            name="author"
+            component="input"
+            type="text"
+            placeholder="Name"
+            required
+            autoFocus
+          />
+          <label>Comment</label>
+          <Field
+            name="body"
+            component="input"
+            type="text"
+            placeholder="Leave a comment"
+            required
+          />
           <div>
             <button type="submit">Submit</button>
           </div>
         </form>
-        <div className="overlay" onClick={() => onCloseForm()}></div>
+        <div className="overlay" onClick={() => onCloseForm()} />
       </div>
     );
   }

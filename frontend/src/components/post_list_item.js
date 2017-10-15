@@ -43,36 +43,10 @@ class PostListItem extends Component {
     } = this.props;
     return (
       <li className="post-list-item" key={id}>
-        <div className="main-content">
-          <Link className="title" to={`/category/${category}/${id}`}>
-            <h3>
-              {title}
-            </h3>
-          </Link>
-          <p className="description">
-            {body}
-          </p>
-          <p>
-            Posted on {moment(timestamp).format('LL')} by {author} in{' '}
-            <Link to={`/category/${category}`}>{category}</Link> • Comments
-          </p>
-          <div className="call-to-action">
-            <Link
-              to={`/category/${category}/${id}/edit`}
-              className="edit-button"
-            >
-              Edit Post
-            </Link>{' '}
-            <p className="delete-button" onClick={this.onDeletePost.bind(this)}>
-              Delete Post
-            </p>
-          </div>
-        </div>
         <div className="vote-mechanism">
           <FaAngleUp
             size={20}
             style={{
-              color: '#0076E5',
               cursor: 'pointer'
             }}
             onClick={this.onClickUpvote.bind(this)}
@@ -83,12 +57,37 @@ class PostListItem extends Component {
           <FaAngleDown
             size={20}
             style={{
-              color: 'red',
               cursor: 'pointer'
             }}
             onClick={this.onClickDownvote.bind(this)}
           />
         </div>
+        <div className="main-content">
+          <Link className="title" to={`/category/${category}/${id}`}>
+            <h3>
+              {title}
+            </h3>
+          </Link>
+          <p>
+            Posted on {moment(timestamp).format('LL')} by {author} in{' '}
+            <Link to={`/category/${category}`}>{category}</Link> • Comments
+          </p>
+          <p className="description">
+            {body}
+          </p>
+          <div className="call-to-action">
+            <Link
+              to={`/category/${category}/${id}/edit`}
+              className="edit-button"
+            >
+              Edit
+            </Link>{' '}
+            <p className="delete-button" onClick={this.onDeletePost.bind(this)}>
+              Delete
+            </p>
+          </div>
+        </div>
+
       </li>
     );
   }

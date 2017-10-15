@@ -3,7 +3,6 @@ import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
 import { editPost } from '../actions';
 
-
 class EditPost extends Component {
   componentDidMount() {
     const selectedPostId = this.props.match.params.posts_id;
@@ -41,57 +40,46 @@ class EditPost extends Component {
     this.props.history.goBack();
   }
 
+  onClickBack() {
+    this.props.history.goBack();
+  }
+
   render() {
     const { handleSubmit } = this.props;
     return (
       <div>
-        <h1>this is the edit post page</h1>
+        <h1>Editing Post</h1>
         <form onSubmit={handleSubmit(this.handleFormSubmit.bind(this))}>
-          <div>
-            <label>Your Name</label>
-            <div>
-              <Field
-                name="author"
-                component="input"
-                type="text"
-                placeholder="Name"
-              />
-            </div>
-          </div>
-          <div>
-            <label>Title</label>
-            <div>
-              <Field
-                name="title"
-                component="input"
-                type="text"
-                placeholder="Title"
-              />
-            </div>
-          </div>
-          <div>
-            <label>Category</label>
-            <div>
-              <Field name="category" component="select" required>
-                <option />
-                <option value="react">
-                  React
-                </option>
-                <option value="redux">Redux</option>
-                <option value="udacity">Udacity</option>
-              </Field>
-            </div>
-          </div>
-          <div>
-            <label>Description</label>
-            <div>
-              <Field name="body" component="textarea" />
-            </div>
-          </div>
-          <div>
-            <button type="submit">Submit</button>
-          </div>
+          <label>Name</label>
+          <Field
+            name="author"
+            component="input"
+            type="text"
+            placeholder="Enter Your Name"
+            required
+          />
+          <label>Post Title</label>
+          <Field
+            name="title"
+            component="input"
+            type="text"
+            placeholder="Title"
+            required
+          />
+          <label>Post Description</label>
+          <Field name="body" component="textarea" required />
+          <label>Category</label>
+          <Field name="category" component="select" required>
+            <option value="" disabled>
+              Select Category
+            </option>
+            <option value="react">React</option>
+            <option value="redux">Redux</option>
+            <option value="udacity">Udacity</option>
+          </Field>
+          <button type="submit">Submit</button>
         </form>
+        <button onClick={this.onClickBack.bind(this)}>go back</button>
       </div>
     );
   }

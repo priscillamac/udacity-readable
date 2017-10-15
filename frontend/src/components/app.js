@@ -23,7 +23,7 @@ class App extends Component {
       <div className="app">
         <Navigation />
         <div className="container main-wrapper">
-          <Sidebar />
+          <Sidebar {...this.props} />
           <Route exact path="/" render={() => <MainPage posts={posts} />} />
           <Route
             exact

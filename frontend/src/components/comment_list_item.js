@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import moment from 'moment';
 import { deleteComment, upvoteComment, downvoteComment } from '../actions';
 import EditComment from './edit_comment';
+import FaAngleUp from 'react-icons/lib/fa/angle-up';
+import FaAngleDown from 'react-icons/lib/fa/angle-down';
 
 class CommentListItem extends Component {
   constructor(props) {
@@ -39,23 +41,39 @@ class CommentListItem extends Component {
       .filter(comment => comment.id === id)
       .map(comment => comment);
     return (
-      <li>
-        <p>
-          author: {author}
-        </p>
-        <div>
-          body:{body}
+      <li className="comment-list-item">
+        <div className="vote-mechanism">
+          <FaAngleUp
+            size={20}
+            style={{
+              cursor: 'pointer'
+            }}
+            onClick={this.onClickUpvote.bind(this)}
+          />
+          <div className="vote-score">
+            {voteScore}
+          </div>
+          <FaAngleDown
+            size={20}
+            style={{
+              cursor: 'pointer'
+            }}
+            onClick={this.onClickDownvote.bind(this)}
+          />
         </div>
-        <p>
-          vote: {voteScore}
-          <button onClick={this.onClickUpvote.bind(this)}>upvote</button>
-          <button onClick={this.onClickDownvote.bind(this)}>downvote</button>
-        </p>
-        <p>
-          date: {moment(timestamp).format('LL')}
-        </p>
-        <button onClick={this.onDeleteComment.bind(this)}>DELETE</button>
-        <button onClick={this.onEditComment.bind(this)}>Edit</button>
+        <div className="content">
+          <div className="author">
+            {author}
+          </div>
+          <div className="body">
+            {body}
+          </div>
+          <div className="info">
+            {moment(timestamp).format('LL')} • <span onClick={this.onEditComment.bind(this)}>Edit</span> | <span onClick={this.onDeleteComment.bind(this)}>Delete</span>
+          </div>
+        </div>
+        {/* <button onClick={this.onDeleteComment.bind(this)}>DELETE</button>
+        <button onClick={this.onEditComment.bind(this)}>Edit</button> */}
         {showEditForm &&
           <EditComment
             id={id}

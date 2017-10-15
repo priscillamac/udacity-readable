@@ -10,7 +10,7 @@ import {
 
 const initialState = {
   posts: [],
-  postDetails: []
+  postDetails: [],
 };
 
 export const postsReducer = (state = initialState, action) => {
@@ -18,7 +18,6 @@ export const postsReducer = (state = initialState, action) => {
     case FETCH_POSTS:
       return Object.assign({}, state, { posts: action.posts });
     case CREATE_POST:
-      console.log(action.post);
       return {
         ...state,
         posts: [

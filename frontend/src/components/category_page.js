@@ -7,8 +7,8 @@ class CategoryPage extends Component {
     const categoryName = this.props.match.params.category_name;
 
     return (
-      <div>
-        <h1>category page for {categoryName}</h1>
+      <div className="category-page hide-description">
+        <h2>{categoryName}</h2>
         <PostsList
           posts={posts.filter(post => post.category === categoryName)}
           categoryName={categoryName}
