@@ -9,6 +9,8 @@ import {
   fetchComments
 } from '../actions';
 import { withRouter } from 'react-router-dom';
+import FaAngleUp from 'react-icons/lib/fa/angle-up';
+import FaAngleDown from 'react-icons/lib/fa/angle-down';
 
 class PostListItem extends Component {
   componentDidMount() {
@@ -19,10 +21,6 @@ class PostListItem extends Component {
     // this redirects back to home if a user deletes a comment.
     // needs withRouter to work
     this.props.history.push('/');
-  }
-
-  onEditPost() {
-    console.log('onEditPost was clicked');
   }
 
   onClickUpvote() {
@@ -45,32 +43,52 @@ class PostListItem extends Component {
     } = this.props;
     return (
       <li className="post-list-item" key={id}>
-        <Link className="title" to={`/category/${category}/${id}`}>
-          <h3>
-            {title}
-          </h3>
-        </Link>
-        <p className="description">
-          {body}
-        </p>
-        <p>
-          Category: <Link to={`/category/${category}`}>{category}</Link>
-        </p>
-        <p>
-          vote Score: {voteScore}
-          <button onClick={this.onClickUpvote.bind(this)}>upvote</button>
-          <button onClick={this.onClickDownvote.bind(this)}>downvote</button>
-        </p>
-        <p>
-          author: {author}
-        </p>
-        <p>
-          Comments: THIS NEEDS TO BE DONE
-        </p>
-        {moment(timestamp).format('LL')}
-        <button onClick={this.onDeletePost.bind(this)}>DELETE</button>
-        <button onClick={this.onEditPost.bind(this)}>Edit</button>
-      <Link to={`/category/${category}/${id}/edit`}>edit</Link>
+        <div className="main-content">
+          <Link className="title" to={`/category/${category}/${id}`}>
+            <h3>
+              {title}
+            </h3>
+          </Link>
+          <p className="description">
+            {body}
+          </p>
+          <p>
+            Posted on {moment(timestamp).format('LL')} by {author} in{' '}
+            <Link to={`/category/${category}`}>{category}</Link> • Comments
+          </p>
+          <div className="call-to-action">
+            <Link
+              to={`/category/${category}/${id}/edit`}
+              className="edit-button"
+            >
+              Edit Post
+            </Link>{' '}
+            <p className="delete-button" onClick={this.onDeletePost.bind(this)}>
+              Delete Post
+            </p>
+          </div>
+        </div>
+        <div className="vote-mechanism">
+          <FaAngleUp
+            size={20}
+            style={{
+              color: '#0076E5',
+              cursor: 'pointer'
+            }}
+            onClick={this.onClickUpvote.bind(this)}
+          />
+          <div className="vote-score">
+            {voteScore}
+          </div>
+          <FaAngleDown
+            size={20}
+            style={{
+              color: 'red',
+              cursor: 'pointer'
+            }}
+            onClick={this.onClickDownvote.bind(this)}
+          />
+        </div>
       </li>
     );
   }

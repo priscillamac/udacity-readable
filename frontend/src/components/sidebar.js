@@ -3,28 +3,23 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { setCategory, fetchCategories } from '../actions';
 
-class CategoryList extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      categoryName: ''
-    };
-  }
-
+class Sidebar extends Component {
   handleSelectCategory(categoryName) {
     this.props.setCategory(categoryName);
-    this.setState({ setCategory: categoryName });
   }
 
   render() {
     const { categories } = this.props;
     return (
-      <div className="category-list">
-        Categories:
+      <div className="sidebar">
+        <Link to="/create">
+          <button>Add New Post</button>
+        </Link>
+        <h3>Categories:</h3>
         <ul>
-          <Link to="/" onClick={this.handleSelectCategory.bind(this, '')}>
+          <li><Link to="/" onClick={this.handleSelectCategory.bind(this, '')}>
             View All
-          </Link>
+          </Link></li>
           {categories.map(category =>
             <li key={category.name}>
               <Link
@@ -48,4 +43,4 @@ const mapStateToProps = ({ categoryReducer }) => ({
 export default connect(mapStateToProps, {
   setCategory,
   fetchCategories
-})(CategoryList);
+})(Sidebar);

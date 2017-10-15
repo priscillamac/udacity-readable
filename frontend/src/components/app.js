@@ -5,7 +5,7 @@ import MainPage from './main_page';
 import CreatePost from './create_post';
 import CategoryPage from './category_page';
 import PostDetail from './post_detail';
-import CategoryList from './category_list';
+import Sidebar from './sidebar';
 import EditPost from './edit_post';
 import Navigation from './navigation';
 import { connect } from 'react-redux';
@@ -22,18 +22,25 @@ class App extends Component {
     return (
       <div className="app">
         <Navigation />
-        <CategoryList />
-        <Route exact path="/" render={() => <MainPage posts={posts} />} />
-        <Route
-          exact path={`/category/:category_name`}
-          render={(props) => (<CategoryPage {...props} posts={posts}/>)}
-        />
-        <Route
-          exact path={`/category/:category_name/:posts_id`}
-          render={(props) => (<PostDetail {...props} />)}
-        />
-        <Route path="/create" component={CreatePost} />
-      <Route path="/category/:category_name/:posts_id/edit" component={EditPost} />
+        <div className="container main-wrapper">
+          <Sidebar />
+          <Route exact path="/" render={() => <MainPage posts={posts} />} />
+          <Route
+            exact
+            path={`/category/:category_name`}
+            render={props => <CategoryPage {...props} posts={posts} />}
+          />
+          <Route
+            exact
+            path={`/category/:category_name/:posts_id`}
+            render={props => <PostDetail {...props} />}
+          />
+          <Route path="/create" component={CreatePost} />
+          <Route
+            path="/category/:category_name/:posts_id/edit"
+            component={EditPost}
+          />
+        </div>
       </div>
     );
   }
@@ -44,7 +51,9 @@ const mapStateToProps = ({ categoryReducer, postsReducer }) => ({
   posts: postsReducer.posts
 });
 
-export default withRouter(connect(mapStateToProps, {
-  fetchCategories,
-  fetchPosts
-})(App));
+export default withRouter(
+  connect(mapStateToProps, {
+    fetchCategories,
+    fetchPosts
+  })(App)
+);

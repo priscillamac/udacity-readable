@@ -7,10 +7,7 @@ class Navigation extends Component {
       <header className="navigation">
         <div className="container">
           <Link to="/">
-            <h2>Title</h2>
-          </Link>
-          <Link to="/create" role="button">
-            <button>Create Post</button>
+            <h1>Readable</h1>
           </Link>
         </div>
       </header>
