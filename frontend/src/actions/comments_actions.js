@@ -38,11 +38,13 @@ export const createComment = comment => dispatch => {
   });
 };
 
-export const editComment = (comment, id) => dispatch => {
-  ReadableAPI.editComment(comment, id).then(() => {
-    dispatch({
-      type: EDIT_COMMENT,
-      comment
-    });
-  });
-};
+// export const editComment = (comment, id) => dispatch => {
+//   ReadableAPI.editComment(comment, id).then(() => {
+//     dispatch({
+//       type: EDIT_COMMENT,
+//       comment
+//     });
+//   });
+// };
+
+export const editComment = (comment, id) => dispatch => { ReadableAPI.editComment(comment, id).then((data) => { dispatch({ type: EDIT_COMMENT, comment: data }); }); };
