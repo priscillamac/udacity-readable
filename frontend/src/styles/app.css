@@ -84,7 +84,7 @@ button {
   margin-top: 0; }
 
 .post-detail .sort-by {
-  display: none; }
+  display: none !important; }
 
 .hide-description .description {
   display: none; }

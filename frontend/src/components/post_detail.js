@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
+import PostsList from './posts_list';
 import CommentListItem from './comment_list_item';
-import PostListItem from './post_list_item';
 import { connect } from 'react-redux';
 import { fetchPostDetails, fetchComments, createComment } from '../actions';
 import { Field, reduxForm, reset } from 'redux-form';
@@ -26,21 +26,12 @@ class PostDetail extends Component {
   }
 
   render() {
-    const { comments, handleSubmit, post } = this.props;
+    const { comments, posts, handleSubmit, post } = this.props;
     const postId = this.props.match.params.posts_id;
 
     return (
       <div className="post-detail">
-        <PostListItem
-          id={postId}
-          body={post.body}
-          title={post.title}
-          category={post.category}
-          timestamp={post.timestamp}
-          author={post.author}
-          voteScore={post.voteScore}
-        />
-
+        <PostsList posts={posts.filter(post => post.id === postId)} />
         <div className="comment-section">
           <div className="number-of-comments">
             {comments.length} comments
@@ -48,20 +39,28 @@ class PostDetail extends Component {
           <div className="comment-body">
             <h3>Add a comment</h3>
             <form onSubmit={handleSubmit(this.handleFormSubmit.bind(this))}>
-              <Field
-                name="author"
-                component="input"
-                type="text"
-                placeholder="Name"
-                required
-              />
-              <Field
-                name="body"
-                component="input"
-                type="text"
-                placeholder="Leave a comment"
-                required
-              />
+              <div>
+                <div>
+                  <Field
+                    name="author"
+                    component="input"
+                    type="text"
+                    placeholder="Name"
+                    required
+                  />
+                </div>
+              </div>
+              <div>
+                <div>
+                  <Field
+                    name="body"
+                    component="input"
+                    type="text"
+                    placeholder="Leave a comment"
+                    required
+                  />
+                </div>
+              </div>
               <button type="submit">Submit</button>
             </form>
             <ul>
