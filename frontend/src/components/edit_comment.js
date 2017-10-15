@@ -23,7 +23,7 @@ class EditComment extends Component {
         author,
         voteScore: comment.voteScore,
         deleted: comment.deleted,
-        parentDelete: comment.parentDeleted
+        parentDeleted: comment.parentDeleted
     };
 
     this.props.editComment(commentObject, comment.id);

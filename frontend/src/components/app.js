@@ -6,7 +6,7 @@ import CreatePost from './create_post';
 import CategoryPage from './category_page';
 import PostDetail from './post_detail';
 import CategoryList from './category_list';
-import EditComment from './edit_comment';
+import EditPost from './edit_post';
 import Navigation from './navigation';
 import { connect } from 'react-redux';
 import { fetchCategories, fetchPosts } from '../actions';
@@ -29,11 +29,11 @@ class App extends Component {
           render={(props) => (<CategoryPage {...props} posts={posts}/>)}
         />
         <Route
-          path={`/category/:category_name/:posts_id`}
+          exact path={`/category/:category_name/:posts_id`}
           render={(props) => (<PostDetail {...props} />)}
         />
         <Route path="/create" component={CreatePost} />
-        <Route path="/edit" component={EditComment} />
+      <Route path="/category/:category_name/:posts_id/edit" component={EditPost} />
       </div>
     );
   }

@@ -4,7 +4,8 @@ import {
   DELETE_POST,
   UPVOTE_POST,
   DOWNVOTE_POST,
-  CREATE_POST
+  CREATE_POST,
+  EDIT_POST
 } from '../actions/types';
 
 const initialState = {
@@ -41,6 +42,14 @@ export const postsReducer = (state = initialState, action) => {
         ]
       };
     case DOWNVOTE_POST:
+      return {
+        ...state,
+        posts: [
+          ...state.posts.filter(post => post.id !== action.post.id),
+          action.post
+        ]
+      };
+    case EDIT_POST:
       return {
         ...state,
         posts: [

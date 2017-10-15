@@ -58,6 +58,14 @@ export const downvotePost = (postId) => {
   }).then(res => res.json())
 }
 
+export const editPost = (body, postId) => {
+  return fetch(`${api}/posts/${postId}`, {
+    method: 'PUT',
+    body: JSON.stringify(body),
+    headers
+  }).then(res => res.json())
+}
+
 
 // COMMENTS
 export const getComments = (postId) =>

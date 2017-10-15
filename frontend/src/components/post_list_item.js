@@ -70,6 +70,7 @@ class PostListItem extends Component {
         {moment(timestamp).format('LL')}
         <button onClick={this.onDeletePost.bind(this)}>DELETE</button>
         <button onClick={this.onEditPost.bind(this)}>Edit</button>
+      <Link to={`/category/${category}/${id}/edit`}>edit</Link>
       </li>
     );
   }

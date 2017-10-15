@@ -4,7 +4,8 @@ import {
   DELETE_POST,
   UPVOTE_POST,
   DOWNVOTE_POST,
-  CREATE_POST
+  CREATE_POST,
+  EDIT_POST
 } from './types';
 import * as ReadableAPI from '../utils/readable_api';
 
@@ -50,3 +51,12 @@ export const createPost = (post) => dispatch => {
       dispatch({type: CREATE_POST, post});
     })
 }
+
+export const editPost = (post, id) => dispatch => {
+  ReadableAPI.editPost(post, id).then(() => {
+    dispatch({
+      type: EDIT_POST,
+      post
+    });
+  });
+};

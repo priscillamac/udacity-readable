@@ -11,8 +11,6 @@ const initialState = {
   comments: []
 };
 
-const comments = 'comments';
-
 export const commentsReducer = (state = initialState, action) => {
   switch (action.type) {
     case FETCH_COMMENTS:
@@ -50,12 +48,12 @@ export const commentsReducer = (state = initialState, action) => {
       };
     case EDIT_COMMENT:
       return {
-      ...state,
-      [comments]: [
-        ...state.comments.filter(comment => comment.id !== action.comment.id),
-        action.comment
-      ]
-    };
+        ...state,
+        comments: [
+          ...state.comments.filter(comment => comment.id !== action.comment.id),
+          action.comment
+        ]
+      };
     default:
       return state;
   }
