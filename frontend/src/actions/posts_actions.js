@@ -63,17 +63,8 @@ export const editPost = (post, id) => dispatch => {
   });
 };
 
-
-// export const sortPostByNewest = sortBy => ({
-//   type: SORT_POST_BY_NEWEST,
-//   sortBy
-// });
-
 export const sortByNewest = () => dispatch =>
   dispatch({type: SORT_BY_NEWEST});
 
 export const sortByOldest = () => dispatch =>
   dispatch({type: SORT_BY_OLDEST});
-
-// export const sort = () => dispatch =>
-//   dispatch({type: ORDER_POSTS_BY_VOTES});

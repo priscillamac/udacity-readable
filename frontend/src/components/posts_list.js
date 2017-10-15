@@ -8,19 +8,14 @@ import { sortByNewest, sortByOldest } from '../actions';
 class PostsList extends Component {
   onChangeSortBy = (event) => {
     const value = event.target.value;
-    // console.log(value);
-    // if (value === '')
     switch (value) {
       case 'newest':
         return this.props.sortByNewest();
       case 'oldest':
         return this.props.sortByOldest();
-        break;
       default:
         return this.props.sortByNewest();
-
     }
-    // value.startsWith('vote_score') ? (value.endsWith('dec')? this.props.sortDecByVotescore() : this.props.sortAecByVotescore()) : (value.endsWith('dec') ? this.props.sortDecByTimestamp() : this.props.sortAecByTimestamp())
   }
 
   render() {
@@ -68,7 +63,6 @@ class PostsList extends Component {
 }
 
 const mapStateToProps = ({ postsReducer }) => ({
-  posts: postsReducer.posts,
   sortBy: postsReducer.sortBy
 });
 

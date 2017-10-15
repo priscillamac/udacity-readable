@@ -44,7 +44,7 @@ class CreatePost extends Component {
             <Field name="body" component="textarea" required/>
             <label>Category</label>
             <Field name="category" component="select" required>
-              <option value="" disabled selected>
+              <option value="" disabled>
                 Select Category
               </option>
               <option value="react">React</option>

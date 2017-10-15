@@ -1,26 +1,12 @@
 import React, { Component } from 'react';
-import PostsList from './posts_list';
 import CommentListItem from './comment_list_item';
+import PostListItem from './post_list_item';
 import { connect } from 'react-redux';
 import { fetchPostDetails, fetchComments, createComment } from '../actions';
 import { Field, reduxForm, reset } from 'redux-form';
-
-function sortByDate(desc = true) {
-  if (desc) {
-    return (a, b) => new Date(b.timestamp) - new Date(a.timestamp);
-  }
-
-  return (a, b) => new Date(a.timestamp) - new Date(b.timestamp);
-}
+import { sortByDate } from '../services';
 
 class PostDetail extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      isDescending: true
-    };
-  }
-
   componentDidMount() {
     const postId = this.props.match.params.posts_id;
     this.props.fetchComments(postId);
@@ -40,21 +26,20 @@ class PostDetail extends Component {
   }
 
   render() {
-    const { comments, posts, handleSubmit } = this.props;
+    const { comments, handleSubmit, post } = this.props;
     const postId = this.props.match.params.posts_id;
 
     return (
       <div className="post-detail">
-        <PostsList posts={posts.filter(post => post.id === postId)} />
-        {/* <PostListItem
-          id={post.id}
+        <PostListItem
+          id={postId}
           body={post.body}
           title={post.title}
           category={post.category}
           timestamp={post.timestamp}
           author={post.author}
           voteScore={post.voteScore}
-         /> */}
+        />
 
         <div className="comment-section">
           <div className="number-of-comments">
@@ -63,33 +48,25 @@ class PostDetail extends Component {
           <div className="comment-body">
             <h3>Add a comment</h3>
             <form onSubmit={handleSubmit(this.handleFormSubmit.bind(this))}>
-              <div>
-                <div>
-                  <Field
-                    name="author"
-                    component="input"
-                    type="text"
-                    placeholder="Name"
-                    required
-                  />
-                </div>
-              </div>
-              <div>
-                <div>
-                  <Field
-                    name="body"
-                    component="input"
-                    type="text"
-                    placeholder="Leave a comment"
-                    required
-                  />
-                </div>
-              </div>
+              <Field
+                name="author"
+                component="input"
+                type="text"
+                placeholder="Name"
+                required
+              />
+              <Field
+                name="body"
+                component="input"
+                type="text"
+                placeholder="Leave a comment"
+                required
+              />
               <button type="submit">Submit</button>
             </form>
             <ul>
               {comments
-                .sort(sortByDate(this.state.isDescending))
+                .sort(sortByDate(true))
                 .map(comment =>
                   <CommentListItem key={`${comment.id}-comment`} {...comment} />
                 )}
@@ -104,6 +81,7 @@ class PostDetail extends Component {
 const mapStateToProps = ({ postsReducer, commentsReducer }) => ({
   postsReducer,
   posts: postsReducer.posts,
+  post: postsReducer.postDetails,
   title: postsReducer.postDetails.title,
   comments: commentsReducer.comments
 });
