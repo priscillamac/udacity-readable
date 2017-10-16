@@ -2,8 +2,6 @@ This is a repository containing Priscilla Macalincag's Readable assignment, for 
 
 ## Getting Started
 
-To get started developing right away:
-
 * Install and start the API server
     - `cd api-server`
     - `npm install`
