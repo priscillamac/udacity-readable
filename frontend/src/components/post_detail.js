@@ -26,7 +26,7 @@ class PostDetail extends Component {
   }
 
   render() {
-    const { comments, posts, handleSubmit, post } = this.props;
+    const { comments, posts, handleSubmit } = this.props;
     const postId = this.props.match.params.posts_id;
 
     return (
