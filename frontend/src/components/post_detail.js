@@ -39,28 +39,20 @@ class PostDetail extends Component {
           <div className="comment-body">
             <h3>Add a comment</h3>
             <form onSubmit={handleSubmit(this.handleFormSubmit.bind(this))}>
-              <div>
-                <div>
-                  <Field
-                    name="author"
-                    component="input"
-                    type="text"
-                    placeholder="Name"
-                    required
-                  />
-                </div>
-              </div>
-              <div>
-                <div>
-                  <Field
-                    name="body"
-                    component="input"
-                    type="text"
-                    placeholder="Leave a comment"
-                    required
-                  />
-                </div>
-              </div>
+              <Field
+                name="author"
+                component="input"
+                type="text"
+                placeholder="Name"
+                required
+              />
+              <Field
+                name="body"
+                component="input"
+                type="text"
+                placeholder="Leave a comment"
+                required
+              />
               <button type="submit">Submit</button>
             </form>
             <ul>

@@ -39,8 +39,12 @@ class PostListItem extends Component {
       category,
       timestamp,
       author,
-      voteScore
+      voteScore,
+      postComments
     } = this.props;
+
+    const commentLength = postComments.filter(comment => comment.parentId === id).length;
+
     return (
       <li className="post-list-item" key={id}>
         <div className="vote-mechanism">
@@ -70,7 +74,7 @@ class PostListItem extends Component {
           </Link>
           <p>
             Posted on {moment(timestamp).format('LL')} by {author} in{' '}
-            <Link to={`/category/${category}`}>{category}</Link> • Comments
+            <Link to={`/category/${category}`}>{category}</Link> • {commentLength} Comments
           </p>
           <p className="description">
             {body}
@@ -95,7 +99,7 @@ class PostListItem extends Component {
 
 const mapStateToProps = ({ postsReducer, commentsReducer }) => ({
   postsReducer,
-  comments: commentsReducer.comments
+  postComments: commentsReducer.comments
 });
 
 export default withRouter(
